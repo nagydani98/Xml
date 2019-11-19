@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+    
+    <xs:complexType name="personBaseType">
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+    </xs:complexType>
+    
+    <xs:complexType name="furnitureBaseType">
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="name" type="xs:string" use="required"/>
+        <xs:attribute name="colour" type="xs:string"/>
+        <xs:attribute name="dimensions" type="xs:string"/>
+    </xs:complexType>
+    
+    <xs:complexType name="saleType">
+        <xs:attribute name="id" type="xs:string" use="required"/>
+        <xs:attribute name="employeeId" type="xs:string" use="required"/>
+        <xs:attribute name="furnitureId" type="xs:string" use="required"/>
+        <xs:attribute name="amount" type="xs:integer" default="1"/>
+    </xs:complexType>
+    
+    <xs:element name="store">
+        <xs:complexType>
+            <xs:sequence>
+                <xs:element name="team">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="employee" type="personBaseType" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="wares">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="product" type="furnitureBaseType" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                <xs:element name="saleHistory">
+                    <xs:complexType>
+                        <xs:sequence>
+                            <xs:element name="sale" type="saleType" maxOccurs="unbounded"/>
+                        </xs:sequence>
+                    </xs:complexType>
+                </xs:element>
+                
+                
+            </xs:sequence>
+        </xs:complexType>
+        <xs:key name="employeeKey">
+            <xs:selector xpath="team/employee"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:key name="productKey">
+            <xs:selector xpath="wares/product"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        <xs:key name="saleKey">
+            <xs:selector xpath="saleHistory/sale"/>
+            <xs:field xpath="@id"/>
+        </xs:key>
+        
+        <xs:keyref refer="employeeKey" name="seller">
+            <xs:selector xpath="saleHistory/sale"></xs:selector>
+            <xs:field xpath="@employeeId"></xs:field>
+        </xs:keyref>
+        <xs:keyref refer="productKey" name="soldWares">
+            <xs:selector xpath="saleHistory/sale"></xs:selector>
+            <xs:field xpath="@furnitureId"></xs:field>
+        </xs:keyref>
+    </xs:element>
+</xs:schema>

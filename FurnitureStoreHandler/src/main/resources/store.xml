@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<store xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="furniturestore.xsd">  
+
+
+
+<team>
+        <employee id="lap123" name="John Doe"/>
+        <employee id="la9123" name="Jane Doe"/>
+    <employee id="asd56" name="Béla"/>
+<employee id="1234" name="Zala"/>
+</team>
+<wares>
+        <product colour="black" dimensions="147x66" id="huhu456" name="wardrobe"/>
+        <product colour="red" dimensions="147x66" id="aosk76" name="wardrobe"/>
+        <product colour="blue" dimensions="147x66" id="12345" name="wardrobe"/>
+    <product colour="piros" dimensions="78x5" id="4" name="valami"/>
+</wares>
+<saleHistory>
+        <sale amount="2" employeeId="lap123" furnitureId="aosk76" id="45"/>
+    <sale amount="65" employeeId="1234" furnitureId="4" id="1"/>
+</saleHistory>
+</store>
